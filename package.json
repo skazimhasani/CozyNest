@@ -8,5 +8,10 @@
   "keywords": [],
   "author": "Kazim Hasani",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.2"
+  }
 }
