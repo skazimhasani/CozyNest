@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const port = 8080;
+const path = require("path");
+
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/cozynest";
+
 const Listing = require("./models/listing.js");
-const path = require("path");
 
 main()
   .then(() => {
@@ -28,6 +30,13 @@ app.get("/", (req, res) => {
 app.get("/listings", async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
+});
+
+//Show Route
+app.get("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/show.ejs", { listing });
 });
 
 app.listen(port, () => {
