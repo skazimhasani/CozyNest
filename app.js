@@ -3,6 +3,7 @@ const app = express();
 const port = 8080;
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/cozynest";
+const Listing = require("./models/listing.js");
 
 main()
   .then(() => {
@@ -13,6 +14,18 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
+
+app.get("/test", async (req, res) => {
+  let sample = new Listing({
+    title: "My Home",
+    description: "Sweet Home",
+    price: 1200,
+    location: "Karachi",
+    country: "Pakistan",
+  });
+  await sample.save();
+  console.log("Save"), res.send("Success");
+});
 
 app.get("/", (req, res) => {
   res.send("Hi, I am Root");
