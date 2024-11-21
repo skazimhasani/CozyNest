@@ -10,10 +10,10 @@ const listingSchema = new Schema({
   image: {
     type: String,
     default:
-      "https://unsplash.com/photos/a-green-car-parked-in-front-of-a-large-building-N2gzYjsyNEY",
+      "https://unsplash.com/photos/a-house-with-a-blue-front-door-and-a-brown-front-door-xaqsFfoEq3o",
     set: (v) =>
       v === ""
-        ? "https://unsplash.com/photos/a-green-car-parked-in-front-of-a-large-building-N2gzYjsyNEY"
+        ? "https://unsplash.com/photos/a-house-with-a-blue-front-door-and-a-brown-front-door-xaqsFfoEq3o"
         : v,
   },
   price: Number,
