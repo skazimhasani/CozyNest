@@ -4,14 +4,12 @@ const port = 8080;
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/cozynest";
-
 const ExpressError = require("./utils/ExpressError.js");
-
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const session = require("express-session");
 
 main()
   .then(() => {
@@ -29,6 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+
+const sessionOption = {
+  secret: "mysecretcode",
+  resave: false,
+  saveUninitialized: true,
+};
+
+app.use(session(sessionOption));
 
 //Home Route
 app.get("/", (req, res) => {
