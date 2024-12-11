@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 main()
   .then(() => {
@@ -39,11 +40,18 @@ const sessionOption = {
   },
 };
 
-app.use(session(sessionOption));
-
 //Home Route
 app.get("/", (req, res) => {
   res.send("Hi, I am Root");
+});
+
+app.use(session(sessionOption));
+app.use(flash());
+
+//Flash Middleware
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
 });
 
 //Listings
