@@ -7,8 +7,9 @@ const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/cozynest";
 const ExpressError = require("./utils/ExpressError.js");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRoute = require("./routes/listing.js");
+const reviewRoute = require("./routes/review.js");
+const userRoute = require("./routes/user.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -64,10 +65,10 @@ app.use((req, res, next) => {
   next();
 });
 
-//Listings
-app.use("/listings", listings);
-//Reviews
-app.use("/listings/:id/reviews", reviews);
+//Routes
+app.use("/listings", listingRoute);
+app.use("/listings/:id/reviews", reviewRoute);
+app.use("/", userRoute);
 
 //All not available Routes
 app.all("*", (req, res, next) => {
