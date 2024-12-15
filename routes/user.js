@@ -17,9 +17,14 @@ router.post(
         email,
         username,
       });
-      await User.register(newUser, password);
-      req.flash("success", "Welcome to CozyNest");
-      res.redirect("/listings");
+      const registeredUser = await User.register(newUser, password);
+      req.login(registeredUser, (err) => {
+        if (err) {
+          next(err);
+        }
+        req.flash("success", "Welcome to CozyNest");
+        res.redirect("/listings");
+      });
     } catch (e) {
       req.flash("error", e.message);
       res.redirect("/signup");
